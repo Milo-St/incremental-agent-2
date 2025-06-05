@@ -1,0 +1,65 @@
+===========================
+FEATURES IMPLEMENTED
+--------------------
+- Number formatting (K, M, B, T) is implemented for all resource displays.
+- Shop upgrades and dark mode now persist correctly after refresh and reset.
+- Sound effects play for upgrades and achievements, with a toggle in settings.
+- Settings panel allows toggling dark mode, sound, and provides a confirm reset button.
+- Collapsible panels reduce UI clutter.
+- Achievements and prestige systems are implemented and persist.
+- All game state (including shop) is saved and loaded from localStorage.
+- Audio sources use .ogg files from a reliable CDN; errors are handled gracefully.
+- Dark theme now applies to all openable menus and main UI.
+- QOL features: confirmation for reset, tooltips/info icons, and more.
+- Tooltips/info icons for upgrades, shop items, and achievements. (2025-06-05)
+- More visual feedback (animations, effects, coin fly animation, button highlight, etc). (2025-06-05)
+- Auto-save indicator and manual save button. (2025-06-05)
+- Hotkeys for common actions (C = collect, U = upgrade, A = auto-collector, S = save). (2025-06-05)
+- Button auto-repeat fix for collect/save. (2025-06-05)
+- Statistics panel now fully functional: tracks and displays total coins earned, total clicks, upgrades, auto-collectors, and time played. All stats persist across refreshes. (2025-06-05)
+- Settings panel is robust: supports dark mode, sound toggle, manual save, and confirm reset. (2025-06-05)
+
+PENDING / IDEAS FOR FUTURE IMPROVEMENTS (as of 2025-06-05)
+---------------------------------------------------------
+- Add more shop upgrades and achievements.
+- Add prestige upgrades or meta-progression (e.g., permanent bonuses, unlockable features).
+- Add mobile-friendly UI improvements.
+- Add localization/multi-language support.
+
+REFLECTIONS
+-----------
+
+Reflection (2025-06-05, statistics panel bugfix):
+Fixed the statistics panel so all tracked stats (coins earned, clicks, upgrades, auto-collectors, time played) update and persist correctly. The issue was due to event handler wrapping order and missing direct stat updates in the main action handlers. Now, all main actions update stats directly, ensuring robust and future-proof tracking. This makes the stats panel a reliable and satisfying QOL feature for players who want to see their progress!
+
+Reflection (2025-06-05, UX overhaul & visual feedback):
+Major UX overhaul: improved layout, button styles, and added visual feedback for all main actions.
+Collecting coins now animates the button and shows a coin fly effect; upgrades and auto-collector
+purchases animate their buttons. The UI feels more modern, responsive, and satisfying to interact
+with. This is a big step toward a polished, delightful incremental game experience.
+
+Reflection (2025-06-05, tooltips):
+Added info icons and tooltips for upgrades, shop items, and achievements. This makes the game much
+more user-friendly and self-explanatory, especially for new players. The tooltips are accessible
+and styled to fit the UI, and the info icons are keyboard-focusable for accessibility. This is a
+big QOL win for clarity and polish.
+
+Reflection (2025-06-05, auto-save indicator):
+Adding the auto-save indicator and manual save button felt like a solid QOL improvement. It’s
+satisfying to see the game become more user-friendly and transparent, and I think these small
+touches really help make the experience feel more polished and trustworthy for players. Looking
+forward to adding more polish and features!
+
+Reflection (2025-06-05, hotkeys):
+Adding hotkeys for common actions (C = collect, U = upgrade, A = auto-collector, S = save) makes
+the game feel much snappier and more accessible, especially for keyboard users. It’s a small but
+meaningful boost to usability and accessibility. I’m happy with how quickly this improved the play
+experience!
+
+Reflection (2025-06-05, button auto-repeat fix):
+Fixed an issue where holding down the "Collect Coin" and "Save Now" buttons would trigger
+multiple actions due to auto-repeat. Now, both buttons only trigger their action once per press,
+regardless of how long they are held down. This makes the game feel more responsive and prevents
+accidental rapid progress or save spamming. The solution uses a simple pressed-state flag and works
+for both mouse and keyboard input. This is a subtle but important QOL improvement for a polished
+incremental game experience.
