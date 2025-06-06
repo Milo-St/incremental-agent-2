@@ -19,14 +19,24 @@ try {
 function updateStatsDisplay() {
     const statsList = document.getElementById('stats-list');
     if (!statsList) return;
-    statsList.innerHTML = `
-        <li><b>Total Coins Earned:</b> <span id="stat-total-coins">${window.formatNumber ? window.formatNumber(stats.totalCoinsEarned) : stats.totalCoinsEarned}</span></li>
-        <li><b>Total Clicks:</b> <span id="stat-total-clicks">${stats.totalClicks}</span></li>
-        <li><b>Total Upgrades Bought:</b> <span id="stat-total-upgrades">${stats.totalUpgrades}</span></li>
-        <li><b>Total Auto-Collectors Bought:</b> <span id="stat-total-autocollectors">${stats.totalAutoCollectors}</span></li>
-        <li><b>Time Played:</b> <span id="stat-time-played">${formatTime(stats.timePlayed)}</span></li>
-    `;
+    statsList.innerHTML =
+        `<li><b>Total Coins Earned:</b> <span id="stat-total-coins">${window.formatNumber ? window.formatNumber(stats.totalCoinsEarned) : stats.totalCoinsEarned}</span></li>` +
+        `<li><b>Total Clicks:</b> <span id="stat-total-clicks">${stats.totalClicks}</span></li>` +
+        `<li><b>Total Upgrades Bought:</b> <span id="stat-total-upgrades">${stats.totalUpgrades}</span></li>` +
+        `<li><b>Total Auto-Collectors Bought:</b> <span id="stat-total-autocollectors">${stats.totalAutoCollectors}</span></li>` +
+        `<li><b>Time Played:</b> <span id="stat-time-played">${formatTime(stats.timePlayed)}</span></li>`;
 }
+
+// Coins per second calculation (global, not inside updateStatsDisplay)
+let lastCpsCoins = 0;
+let coinsPerSecond = 0;
+window.getCoinsPerSecond = function() { return coinsPerSecond; };
+setInterval(() => {
+    let nowCoins = window.coins || 0;
+    coinsPerSecond = nowCoins - lastCpsCoins;
+    lastCpsCoins = nowCoins;
+    if (window.updateStatsDisplay) window.updateStatsDisplay();
+}, 1000);
 
 function formatTime(seconds) {
     const h = Math.floor(seconds / 3600);
@@ -49,8 +59,10 @@ setInterval(() => {
 const oldHandleCollectClick = window.handleCollectClick;
 window.handleCollectClick = function() {
     let amount = window.getIncrementAmount ? window.getIncrementAmount() : 1;
+    let clickMult = window.shopClickMultiplier || 1;
     let multiplier = window.getPrestigeMultiplier ? window.getPrestigeMultiplier() : 1;
-    stats.totalCoinsEarned += amount * multiplier;
+    let totalGain = amount * clickMult * multiplier;
+    stats.totalCoinsEarned += totalGain;
     stats.totalClicks++;
     if (oldHandleCollectClick) oldHandleCollectClick();
     updateStatsDisplay();

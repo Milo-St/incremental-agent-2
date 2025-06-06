@@ -25,6 +25,13 @@ window.formatNumber = formatNumber;
 
 window.updateDisplay = function() {
     coinsDisplay.textContent = formatNumber(window.coins);
+    // Update coins per second display
+    const cpsEl = document.getElementById('cps-display');
+    if (cpsEl && window.getCoinsPerSecond) {
+        let cps = window.getCoinsPerSecond();
+        let displayCps = (Math.abs(cps) >= 1 ? cps.toFixed(2) : cps.toPrecision(2)).replace(/\.00$/, '');
+        cpsEl.textContent = `(+${displayCps}/sec)`;
+    }
     // Also update autosave indicator position if present
     const autosaveBtn = document.getElementById('manual-save-btn');
     if (autosaveBtn) {
@@ -44,11 +51,13 @@ window.handleCollectClick = function() {
     if (now - lastCollectTime < 200) return;
     lastCollectTime = now;
     let amount = window.getIncrementAmount ? window.getIncrementAmount() : 1;
+    let clickMult = window.shopClickMultiplier || 1;
     let multiplier = window.getPrestigeMultiplier ? window.getPrestigeMultiplier() : 1;
-    window.coins += amount * multiplier;
+    let totalGain = amount * clickMult * multiplier;
+    window.coins += totalGain;
     // Stats update
     if (window.stats) {
-        window.stats.totalCoinsEarned = (window.stats.totalCoinsEarned || 0) + amount * multiplier;
+        window.stats.totalCoinsEarned = (window.stats.totalCoinsEarned || 0) + totalGain;
         window.stats.totalClicks = (window.stats.totalClicks || 0) + 1;
         if (window.updateStatsDisplay) window.updateStatsDisplay();
     }
@@ -57,10 +66,11 @@ window.handleCollectClick = function() {
     incrementBtn.classList.remove('coin-animate');
     void incrementBtn.offsetWidth; // force reflow
     incrementBtn.classList.add('coin-animate');
-    // Coin fly animation
+    // Coin fly animation (limit decimals to 2 max)
     const coinFly = document.createElement('span');
     coinFly.className = 'coin-fly';
-    coinFly.textContent = '+ ' + (amount * multiplier);
+    let displayGain = (Math.abs(totalGain) >= 1 ? totalGain.toFixed(2) : totalGain.toPrecision(2)).replace(/\.00$/, '');
+    coinFly.textContent = '+ ' + displayGain;
     incrementBtn.parentNode.insertBefore(coinFly, incrementBtn);
     setTimeout(() => coinFly.remove(), 700);
 };

@@ -29,7 +29,12 @@ function startAutoCollector() {
             if (autoCollectorCount > 0) {
                 let prestigeMult = window.getPrestigeMultiplier ? window.getPrestigeMultiplier() : 1;
                 let shopMult = window.shopAutoCollectorMultiplier || 1;
-                window.coins = Number(window.coins) + autoCollectorCount * prestigeMult * shopMult;
+                let gain = autoCollectorCount * prestigeMult * shopMult;
+                window.coins = Number(window.coins) + gain;
+                if (window.stats) {
+                    window.stats.totalCoinsEarned = (window.stats.totalCoinsEarned || 0) + gain;
+                    if (window.updateStatsDisplay) window.updateStatsDisplay();
+                }
                 window.updateDisplay();
             }
         }, 1000);

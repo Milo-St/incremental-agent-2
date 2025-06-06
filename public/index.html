@@ -10,41 +10,50 @@
     <div id="autosave-indicator" style="font-size:0.8em; color:#888; margin: 0.5em auto 0.5em auto; text-align:center; position:relative; z-index:10;"></div>
     <div class="container">
         <h1>Incremental Game</h1>
-        <div id="resource-display" style="display:flex;align-items:center;justify-content:center;gap:1em;">
-            <span>Coins: <span id="coins">0</span></span>
+        <div id="resource-display">
+            <div class="coins-cps-group">
+                <span class="coins-label">Coins:</span>
+                <span id="coins">0</span>
+                <span id="cps-display">(+0/sec)</span>
+            </div>
             <button id="increment-btn" accesskey="c" title="Hotkey: C">Collect Coin</button>
         </div>
-
-        <div id="upgrade-section" style="margin-top:2em;">
-            <button id="upgrade-btn" accesskey="u" title="Hotkey: U">Upgrade (+1 per click)</button>
-            <div>Upgrade Cost: <span id="upgrade-cost">10</span> coins</div>
-            <div>Current Increment: <span id="increment-amount">1</span></div>
-        </div>
-        <div id="autocollector-section" style="margin-top:2em;">
-            <button id="autocollector-btn" accesskey="a" title="Hotkey: A">Buy Auto-Collector (+1/sec)</button>
-            <div>Auto-Collector Cost: <span id="autocollector-cost">50</span> coins</div>
-            <div>Auto-Collectors Owned: <span id="autocollector-count">0</span></div>
-        </div>
-        <div class="collapsible-panel" style="margin-top:2em;">
-            <button class="collapsible" onclick="togglePanel('stats-panel')">Statistics</button>
-            <div id="stats-panel" class="content-panel" style="display:none; text-align:left;">
+        <div class="main-tabs">
+            <div class="tab-bar">
+                <button class="tab-btn" onclick="showTab('stats-tab')" id="tab-btn-stats">Statistics</button>
+                <button class="tab-btn" onclick="showTab('shop-tab')" id="tab-btn-shop">Shop</button>
+                <button class="tab-btn" onclick="showTab('appearance-tab')" id="tab-btn-appearance">Appearance</button>
+                <button class="tab-btn" onclick="showTab('prestige-tab')" id="tab-btn-prestige">Prestige</button>
+            </div>
+            <div class="tab-content" id="stats-tab">
                 <ul id="stats-list" style="list-style:none; padding-left:0;"></ul>
             </div>
-            <button class="collapsible" onclick="togglePanel('shop-panel')">Shop</button>
-            <div id="shop-panel" class="content-panel" style="display:none; text-align:left;">
+            <div class="tab-content" id="shop-tab" style="display:none;">
                 <ul id="shop-list" style="list-style:none; padding-left:0;"></ul>
             </div>
-            <button class="collapsible" onclick="togglePanel('prestige-panel')">Prestige</button>
-            <div id="prestige-panel" class="content-panel" style="display:none; background:#f9f6e7; padding:1em; border-radius:8px;">
+            <div class="tab-content" id="appearance-tab" style="display:none;">
+                <ul id="appearance-shop-list" style="list-style:none; padding-left:0;"></ul>
+            </div>
+            <div class="tab-content" id="prestige-tab" style="display:none;">
                 <div>Prestige Points: <span id="prestige-points">0</span></div>
                 <div>Prestige Multiplier: <span id="prestige-multiplier">1.0x</span></div>
                 <button id="prestige-btn" disabled style="margin-top:1em; background:#8e44ad; color:#fff;">Prestige (Reset for Bonus)</button>
                 <div style="font-size:0.9em; color:#888; margin-top:0.5em;">Requires 1000 coins to prestige. Each prestige increases all coin gains by 10%.</div>
             </div>
         </div>
-        <div class="collapsible-panel" style="margin-top:1em;">
-            <button class="collapsible" onclick="togglePanel('achievements-panel')">Achievements</button>
-            <div id="achievements-panel" class="content-panel" style="display:none; text-align:left;">
+        <div class="side-panels">
+            <div id="upgrade-section">
+                <button id="upgrade-btn" accesskey="u" title="Hotkey: U">Upgrade (+1 per click)</button>
+                <div>Upgrade Cost: <span id="upgrade-cost">10</span> coins</div>
+                <div>Current Increment: <span id="increment-amount">1</span></div>
+            </div>
+            <div id="autocollector-section">
+                <button id="autocollector-btn" accesskey="a" title="Hotkey: A">Buy Auto-Collector (+1/sec)</button>
+                <div>Auto-Collector Cost: <span id="autocollector-cost">50</span> coins</div>
+                <div>Auto-Collectors Owned: <span id="autocollector-count">0</span></div>
+            </div>
+            <div id="achievements-panel" class="content-panel" style="margin-top:1.5em; text-align:left;">
+                <h3 style="margin-bottom:0.5em;">Achievements</h3>
                 <ul id="achievements-list" style="list-style:none; padding-left:0;"></ul>
             </div>
         </div>
@@ -114,14 +123,21 @@
             }
         };
     });
-    function togglePanel(id) {
-        var panel = document.getElementById(id);
-        if (panel.style.display === 'none' || panel.style.display === '') {
-            panel.style.display = 'block';
-        } else {
-            panel.style.display = 'none';
-        }
+    // Tab logic
+    function showTab(tabId) {
+        var tabs = document.querySelectorAll('.tab-content');
+        var btns = document.querySelectorAll('.tab-btn');
+        tabs.forEach(function(tab) {
+            tab.style.display = (tab.id === tabId) ? 'block' : 'none';
+        });
+        btns.forEach(function(btn) {
+            btn.classList.toggle('active', btn.getAttribute('onclick').includes(tabId));
+        });
     }
+    // Set default tab
+    window.addEventListener('DOMContentLoaded', function() {
+        showTab('stats-tab');
+    });
     // Ensure all scripts run after DOM is loaded
     // Load scripts in order, then call loadGame from save.js
     window.addEventListener('DOMContentLoaded', function() {

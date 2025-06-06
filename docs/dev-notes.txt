@@ -26,6 +26,28 @@ PENDING / IDEAS FOR FUTURE IMPROVEMENTS (as of 2025-06-05)
 - Add mobile-friendly UI improvements.
 - Add localization/multi-language support.
 
+RECENT CHANGES (2025-06-06)
+---------------------------
+- Fixed: Double Click Power shop upgrade now actually doubles coins per click (and all click-based gains, including stats and coin fly animation).
+- Replaced the "Dark Theme" shop upgrade with a new "Coin Magnet" upgrade (automatically collects 1 coin/sec, affected by multipliers).
+- Improved coin display readability: replaced yellow/white gradient with a neutral background and high-contrast text for both light and dark themes.
+
+- Added Appearance Shop: Players can buy and activate Classic, Retro, and Vaporwave themes, or return to the "Base Look". Appearance themes now update the backgrounds and text color for all major panels (coins, upgrades, auto-collector, stats, shop, appearance, achievements, prestige). Only one appearance can be active at a time, and switching/toggling is available after purchase. Coin fly effect now limits decimals for clarity.
+
+- Auto-collector and Coin Magnet now add to total coins earned stat.
+- Coins per second (CPS) is now displayed in the statistics panel.
+
+IDEAS FOR FUTURE IMPROVEMENTS (2025-06-06)
+------------------------------------------
+- Add more shop upgrades: e.g. temporary multipliers, auto-upgrader, or prestige boosters.
+- Add more achievements, including hidden/secret ones.
+- Add a daily login bonus or streak system.
+- Add a simple mobile-friendly layout toggle.
+- Add a settings option to reset only appearance/shop purchases.
+- Add a visual effect for prestige resets.
+- Add a tooltip or panel for explaining all multipliers and bonuses.
+- Add a sound/visual for reaching a new CPS milestone.
+
 REFLECTIONS
 -----------
 

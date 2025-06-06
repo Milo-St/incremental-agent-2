@@ -11,7 +11,7 @@ const incrementAmountDisplay = document.getElementById('increment-amount');
 
 function updateUpgradeDisplay() {
     let clickMult = window.shopClickMultiplier || 1;
-    // Add info icon and tooltip for upgrade
+    // Add info icon and tooltip for upgrade (show tooltip only on hover/focus, not always visible)
     upgradeCostDisplay.innerHTML =
         (window.formatNumber ? window.formatNumber(upgradeCost) : upgradeCost) +
         ' <span class="info-icon" tabindex="0">ℹ️</span>' +
