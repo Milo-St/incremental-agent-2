@@ -14,12 +14,12 @@ function updateUpgradeDisplay() {
     // Add info icon and tooltip for upgrade (show tooltip only on hover/focus, not always visible)
     upgradeCostDisplay.innerHTML =
         (window.formatNumber ? window.formatNumber(upgradeCost) : upgradeCost) +
-        ' <span class="info-icon" tabindex="0">ℹ️</span>' +
-        '<span class="tooltip">Spend coins to increase coins per click. Each upgrade increases your coin gain per click by 1.</span>';
+        ' <span class="tooltip-container"><span class="info-icon" tabindex="0" aria-label="More info" aria-describedby="upgrade-cost-tooltip">ℹ️</span>' +
+        '<span class="tooltip" id="upgrade-cost-tooltip" role="tooltip">Spend coins to increase coins per click. Each upgrade increases your coin gain per click by 1.</span></span>';
     incrementAmountDisplay.innerHTML =
         (window.formatNumber ? window.formatNumber(incrementAmount * clickMult) : (incrementAmount * clickMult)) +
-        ' <span class="info-icon" tabindex="0">ℹ️</span>' +
-        '<span class="tooltip">Current coins gained per click, including all upgrades and shop bonuses.</span>';
+        ' <span class="tooltip-container"><span class="info-icon" tabindex="0" aria-label="More info" aria-describedby="increment-amount-tooltip">ℹ️</span>' +
+        '<span class="tooltip" id="increment-amount-tooltip" role="tooltip">Current coins gained per click, including all upgrades and shop bonuses.</span></span>';
     // Visual feedback for upgrade button
     upgradeBtn.classList.remove('coin-animate');
     void upgradeBtn.offsetWidth;

@@ -1,0 +1,24 @@
+/* Button and tab styles */
+button, .tab-btn {
+    border-radius: 7px;
+    font-size: 1.08em;
+    padding: 0.7em 1.5em;
+    margin: 0.5em 0.2em;
+    border: none;
+    background: #f5f5f5;
+    color: #444;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    transition: background 0.15s, box-shadow 0.15s, transform 0.08s;
+    font-weight: 500;
+    font-family: Arial, sans-serif !important;
+    outline: none;
+    cursor: pointer;
+}
+button:active, .tab-btn:active {
+    background: #e0e0e0;
+    transform: scale(0.97);
+}
+button:focus, .tab-btn:focus {
+    outline: 2px solid #ffe082;
+    outline-offset: 1px;
+}

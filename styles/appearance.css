@@ -1,0 +1,154 @@
+/* Appearance themes only */
+.appearance-classic {
+    --main-bg: #e3eaf7;
+    --container-bg: #f7faff;
+    --main-color: #234;
+    --accent: #3b6ea5;
+    --button-bg: #e3eaf7;
+    --button-color: #234;
+}
+.appearance-classic body,
+.appearance-classic .container {
+    background: var(--main-bg) !important;
+    color: var(--main-color) !important;
+}
+.appearance-classic .container {
+    background: var(--container-bg) !important;
+}
+.appearance-classic button, .appearance-classic input, .appearance-classic select {
+    background: var(--button-bg) !important;
+    color: var(--button-color) !important;
+    border-color: var(--accent) !important;
+}
+
+.appearance-retro {
+    --main-bg: #101b10;
+    --container-bg: #181f18;
+    --main-color: #7fff7f;
+    --accent: #00ff00;
+    --button-bg: #181f18;
+    --button-color: #7fff7f;
+}
+.appearance-retro body,
+.appearance-retro .container {
+    background: var(--main-bg) !important;
+    color: var(--main-color) !important;
+}
+.appearance-retro .container {
+    background: var(--container-bg) !important;
+}
+.appearance-retro button, .appearance-retro input, .appearance-retro select {
+    background: var(--button-bg) !important;
+    color: var(--button-color) !important;
+    border-color: var(--accent) !important;
+}
+
+.appearance-vaporwave {
+    --main-bg: #f7eaff;
+    --container-bg: #ffeafd;
+    --main-color: #a259e6;
+    --accent: #ffb3e6;
+    --button-bg: #ffeafd;
+    --button-color: #a259e6;
+}
+.appearance-vaporwave body,
+.appearance-vaporwave .container {
+    background: var(--main-bg) !important;
+    color: var(--main-color) !important;
+}
+.appearance-vaporwave .container {
+    background: var(--container-bg) !important;
+}
+.appearance-vaporwave button, .appearance-vaporwave input, .appearance-vaporwave select {
+    background: var(--button-bg) !important;
+    color: var(--button-color) !important;
+    border-color: var(--accent) !important;
+}
+
+/* Custom backgrounds for panels in each appearance */
+.appearance-classic #resource-display {
+    background: linear-gradient(90deg, #e3eaf7 60%, #b6c9e3 100%) !important;
+    color: #234 !important;
+}
+.appearance-classic #upgrade-section,
+.appearance-classic #autocollector-section {
+    background: #e3eaf7 !important;
+    color: #234 !important;
+}
+.appearance-classic #stats-panel,
+.appearance-classic #shop-panel,
+.appearance-classic #appearance-shop-panel,
+.appearance-classic #achievements-panel,
+.appearance-classic #prestige-panel {
+    background: #f7faff !important;
+    color: #234 !important;
+}
+
+.appearance-retro #resource-display {
+    background: linear-gradient(90deg, #101b10 60%, #1a2b1a 100%) !important;
+    color: #7fff7f !important;
+}
+.appearance-retro #upgrade-section,
+.appearance-retro #autocollector-section {
+    background: #181f18 !important;
+    color: #7fff7f !important;
+}
+.appearance-retro #stats-panel,
+.appearance-retro #shop-panel,
+.appearance-retro #appearance-shop-panel,
+.appearance-retro #achievements-panel,
+.appearance-retro #prestige-panel {
+    background: #101b10 !important;
+    color: #7fff7f !important;
+}
+
+.appearance-vaporwave #resource-display {
+    background: linear-gradient(90deg, #ffeafd 60%, #e0c3fc 100%) !important;
+    color: #a259e6 !important;
+}
+.appearance-vaporwave #upgrade-section,
+.appearance-vaporwave #autocollector-section {
+    background: #ffeafd !important;
+    color: #a259e6 !important;
+}
+.appearance-vaporwave #stats-panel,
+.appearance-vaporwave #shop-panel,
+.appearance-vaporwave #appearance-shop-panel,
+.appearance-vaporwave #achievements-panel,
+.appearance-vaporwave #prestige-panel {
+    background: #f7eaff !important;
+    color: #a259e6 !important;
+}
+
+body.appearance-classic {
+    background: #b6c9e3 !important;
+}
+.appearance-classic .container {
+    background: #e3eaf7 !important;
+}
+.appearance-classic .tab-content, .appearance-classic .content-panel {
+    background: #f7faff !important;
+    color: #234 !important;
+}
+
+body.appearance-retro {
+    background: #1a2b1a !important;
+}
+.appearance-retro .container {
+    background: #181f18 !important;
+}
+.appearance-retro .tab-content, .appearance-retro .content-panel {
+    background: #101b10 !important;
+    color: #7fff7f !important;
+}
+
+body.appearance-vaporwave {
+    background: #e0c3fc !important;
+}
+.appearance-vaporwave .container {
+    background: #ffeafd !important;
+}
+.appearance-vaporwave .tab-content, .appearance-vaporwave .content-panel {
+    background: #f7eaff !important;
+    color: #a259e6 !important;
+}

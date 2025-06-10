@@ -1,0 +1,39 @@
+/* Tooltip container for correct positioning */
+.tooltip-container {
+  display: inline-block;
+  position: relative;
+}
+/* Tooltip and info icon styles */
+.info-icon {
+  display: inline-block;
+  margin-left: 0.3em;
+  cursor: pointer;
+  color: #3498db;
+  font-size: 1em;
+  vertical-align: middle;
+  position: relative;
+  font-family: Arial, sans-serif !important;
+}
+.tooltip {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 120%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 6px 10px;
+  z-index: 1001;
+  font-size: 0.95em;
+  min-width: 180px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  opacity: 1;
+  white-space: normal;
+  font-family: Arial, sans-serif !important;
+}
+.info-icon:focus ~ .tooltip,
+.info-icon:hover ~ .tooltip {
+  display: block;
+}

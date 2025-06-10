@@ -1,101 +1,9 @@
-/* --- Appearance Shop Themes --- */
-.appearance-classic {
-    --main-bg: #e3eaf7;
-    --container-bg: #f7faff;
-    --main-color: #234;
-    --accent: #3b6ea5;
-    --button-bg: #e3eaf7;
-    --button-color: #234;
-}
-.appearance-classic body,
-.appearance-classic .container {
-    background: var(--main-bg) !important;
-    color: var(--main-color) !important;
-}
-.appearance-classic .container {
-    background: var(--container-bg) !important;
-}
-.appearance-classic button, .appearance-classic input, .appearance-classic select {
-    background: var(--button-bg) !important;
-    color: var(--button-color) !important;
-    border-color: var(--accent) !important;
-}
-
-.appearance-retro {
-    --main-bg: #101b10;
-    --container-bg: #181f18;
-    --main-color: #7fff7f;
-    --accent: #00ff00;
-    --button-bg: #181f18;
-    --button-color: #7fff7f;
-}
-.appearance-retro body,
-.appearance-retro .container {
-    background: var(--main-bg) !important;
-    color: var(--main-color) !important;
-}
-.appearance-retro .container {
-    background: var(--container-bg) !important;
-}
-.appearance-retro button, .appearance-retro input, .appearance-retro select {
-    background: var(--button-bg) !important;
-    color: var(--button-color) !important;
-    border-color: var(--accent) !important;
-}
-
-.appearance-vaporwave {
-    --main-bg: #f7eaff;
-    --container-bg: #ffeafd;
-    --main-color: #a259e6;
-    --accent: #ffb3e6;
-    --button-bg: #ffeafd;
-    --button-color: #a259e6;
-}
-.appearance-vaporwave body,
-.appearance-vaporwave .container {
-    background: var(--main-bg) !important;
-    color: var(--main-color) !important;
-}
-.appearance-vaporwave .container {
-    background: var(--container-bg) !important;
-}
-.appearance-vaporwave button, .appearance-vaporwave input, .appearance-vaporwave select {
-    background: var(--button-bg) !important;
-    color: var(--button-color) !important;
-    border-color: var(--accent) !important;
-}
+/* --- Appearance Shop Themes moved to appearance.css --- */
 /* --- UX Overhaul & Visual Feedback --- */
-.container {
-    max-width: 420px;
-    margin: 60px auto 0 auto;
-    background: #fff;
-    padding: 2.5em 2em 2em 2em;
-    border-radius: 14px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
-    text-align: center;
-    position: relative;
-}
+/* .container moved to base.css and panels.css */
 
 /* Coin, upgrade, auto-collector, stats, shop, appearance, achievement, prestige panels backgrounds */
-#resource-display, #upgrade-section, #autocollector-section, #stats-panel, #shop-panel, #appearance-shop-panel, #achievements-panel, #prestige-panel {
-    font-size: 1.07em;
-    background: #fffbe7;
-    border-radius: 8px;
-    padding: 0.5em 0.7em;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-    color: #222;
-}
-.dark-theme #resource-display,
-.dark-theme #upgrade-section,
-.dark-theme #autocollector-section,
-.dark-theme #stats-panel,
-.dark-theme #shop-panel,
-.dark-theme #appearance-shop-panel,
-.dark-theme #achievements-panel,
-.dark-theme #prestige-panel {
-    background: #232323 !important;
-    color: #ffe082 !important;
-}
+/* panels moved to panels.css */
 
 /* Custom backgrounds for panels in each appearance */
 .appearance-classic #resource-display {
@@ -200,29 +108,7 @@
 
 
 /* Consistent button styling for all buttons */
-button, .tab-btn {
-    border-radius: 7px;
-    font-size: 1.08em;
-    padding: 0.7em 1.5em;
-    margin: 0.5em 0.2em;
-    border: none;
-    background: #f5f5f5;
-    color: #444;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    transition: background 0.15s, box-shadow 0.15s, transform 0.08s;
-    font-weight: 500;
-    font-family: Arial, sans-serif !important;
-    outline: none;
-    cursor: pointer;
-}
-button:active, .tab-btn:active {
-    background: #e0e0e0;
-    transform: scale(0.97);
-}
-button:focus, .tab-btn:focus {
-    outline: 2px solid #ffe082;
-    outline-offset: 1px;
-}
+/* buttons moved to buttons.css */
 
 #upgrade-section, #autocollector-section {
     background: #fafafa;
@@ -284,39 +170,7 @@ button:focus, .tab-btn:focus {
     100% { opacity: 0; }
 }
 /* Tooltip fix: only show tooltip on hover/focus of the icon, not always */
-.info-icon {
-  display: inline-block;
-  margin-left: 0.3em;
-  cursor: pointer;
-  color: #3498db;
-  font-size: 1em;
-  vertical-align: middle;
-  position: relative;
-  font-family: Arial, sans-serif !important;
-}
-.tooltip {
-  display: none;
-  position: absolute;
-  left: 50%;
-  top: 120%;
-  transform: translateX(-50%);
-  background: #222;
-  color: #fff;
-  text-align: left;
-  border-radius: 6px;
-  padding: 6px 10px;
-  z-index: 1001;
-  font-size: 0.95em;
-  min-width: 180px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  opacity: 1;
-  white-space: normal;
-  font-family: Arial, sans-serif !important;
-}
-.info-icon:focus ~ .tooltip,
-.info-icon:hover ~ .tooltip {
-  display: block;
-}
+/* tooltips moved to tooltips.css */
 .dark-theme .content-panel {
     background: #222 !important;
     color: #eee !important;
@@ -365,17 +219,12 @@ button:focus, .tab-btn:focus {
 }
 .content-panel {
     padding: 0 18px 10px 18px;
-    display: none;
+    /* display: none;  <-- REMOVE THIS LINE, content-panel should not be hidden by default */
     overflow: hidden;
     border-radius: 0 0 6px 6px;
     background: #fafafa;
 }
-body {
-    font-family: Arial, sans-serif;
-    background: #f0f0f0;
-    margin: 0;
-    padding: 0;
-}
+/* body and base moved to base.css */
 .container {
     max-width: 400px;
     margin: 100px auto;
@@ -490,33 +339,59 @@ body {
 }
 
 /* Tabbed interface styles */
+/* Main tabs and tab bar: ensure tabs fit inside container and are scrollable if needed */
+
+
+/* NAVBAR STYLE TABS */
 .main-tabs {
     margin-top: 2em;
-    margin-bottom: 2em;
+    margin-bottom: 1.2em;
+    width: 100%;
+    box-sizing: border-box;
 }
 .tab-bar {
     display: flex;
-    gap: 0.5em;
-    margin-bottom: 1em;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    gap: 0;
+    background: #fff;
+    border-radius: 999px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 0.25em 0.5em;
+    margin-bottom: 0.7em;
+    width: fit-content;
+    min-width: 0;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #ececec;
 }
 .tab-btn {
-    background: #f5f5f5;
+    background: none;
     color: #444;
-    border: 1px solid #ccc;
-    border-radius: 6px 6px 0 0;
-    padding: 0.7em 1.5em;
+    border: none;
+    border-radius: 999px;
+    padding: 0.7em 2.1em;
     font-size: 1.08em;
     cursor: pointer;
     font-weight: 500;
     outline: none;
-    transition: background 0.15s, color 0.15s;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    white-space: nowrap;
+    box-sizing: border-box;
+    margin: 0 0.1em;
+    position: relative;
+    z-index: 1;
 }
 .tab-btn.active, .tab-btn:focus {
     background: #ffe082;
     color: #222;
-    border-bottom: 2px solid #ffe082;
+    box-shadow: 0 2px 8px rgba(255,215,64,0.10);
     z-index: 2;
+}
+.tab-btn:hover:not(.active) {
+    background: #f5f5f5;
+    color: #222;
 }
 .tab-content {
     background: #fffbe7;
@@ -527,6 +402,8 @@ body {
     min-height: 120px;
     text-align: left;
     display: none;
+    width: 100%;
+    box-sizing: border-box;
 }
 .tab-content:first-of-type {
     display: block;

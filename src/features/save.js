@@ -40,8 +40,8 @@ function resetGame() {
     location.reload();
 }
 
-// Save every 5 seconds
-setInterval(saveGame, 5000);
+
+// (Removed auto-save interval. Only manual save will show the indicator.)
 
 // Manual save button event with debounce to prevent rapid auto-repeat
 window.addEventListener('DOMContentLoaded', function() {

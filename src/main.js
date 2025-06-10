@@ -1,11 +1,11 @@
 // Auto-save indicator logic
-let autosaveTimeout = null;
+
 function showAutosaveIndicator() {
     const el = document.getElementById('autosave-indicator');
     if (!el) return;
     el.textContent = '💾 Saved';
-    clearTimeout(autosaveTimeout);
-    autosaveTimeout = setTimeout(() => { el.textContent = ''; }, 1200);
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 1200);
 }
 
 window.coins = 0;

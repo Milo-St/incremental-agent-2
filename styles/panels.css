@@ -1,0 +1,31 @@
+/* Panel and layout styles */
+.container {
+    max-width: 600px;
+    margin: 60px auto 0 auto;
+    background: #fff;
+    padding: 2.5em 2em 2em 2em;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    text-align: center;
+    position: relative;
+}
+
+#resource-display, #upgrade-section, #autocollector-section, #stats-panel, #shop-panel, #appearance-shop-panel, #achievements-panel, #prestige-panel {
+    font-size: 1.07em;
+    background: #fffbe7;
+    border-radius: 8px;
+    padding: 0.5em 0.7em;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    color: #222;
+}
+.dark-theme #resource-display,
+.dark-theme #upgrade-section,
+.dark-theme #autocollector-section,
+.dark-theme #stats-panel,
+.dark-theme #shop-panel,
+.dark-theme #appearance-shop-panel,
+.dark-theme #achievements-panel,
+.dark-theme #prestige-panel {
+    background: #232323 !important;
+    color: #ffe082 !important;
+}

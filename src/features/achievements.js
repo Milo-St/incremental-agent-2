@@ -6,21 +6,32 @@ const achievements = [
     { id: 'auto-tycoon', name: 'Auto Tycoon', desc: 'Own 10 auto-collectors.', unlocked: false, check: () => window.getAutoCollectorCount && window.getAutoCollectorCount() >= 10 },
 ];
 
-const achievementsPanel = document.getElementById('achievements-panel');
-const achievementsList = document.getElementById('achievements-list');
-const achievementNotification = document.getElementById('achievement-notification');
+
+function getAchievementsPanel() {
+    return document.getElementById('achievements-panel');
+}
+function getAchievementsList() {
+    return document.getElementById('achievements-list');
+}
+function getAchievementNotification() {
+    return document.getElementById('achievement-notification');
+}
 
 function updateAchievementsDisplay() {
+    const achievementsList = getAchievementsList();
+    if (!achievementsList) return;
     achievementsList.innerHTML = '';
     achievements.forEach(a => {
         const li = document.createElement('li');
-        li.innerHTML = `${a.name} <span class="info-icon" tabindex="0">ℹ️</span><span class="tooltip">${a.desc}</span> - ${a.unlocked ? 'Unlocked' : 'Locked'}`;
+        li.innerHTML = `${a.name} <span class='tooltip-container'><span class='info-icon' tabindex='0' aria-label='More info' aria-describedby='achievement-tooltip-${a.id}'>ℹ️</span><span class='tooltip' id='achievement-tooltip-${a.id}' role='tooltip'>${a.desc}</span></span> - ${a.unlocked ? 'Unlocked' : 'Locked'}`;
         if (a.unlocked) li.classList.add('unlocked');
         achievementsList.appendChild(li);
     });
 }
 
 function showAchievementNotification(name) {
+    const achievementNotification = getAchievementNotification();
+    if (!achievementNotification) return;
     achievementNotification.textContent = `Achievement Unlocked: ${name}!`;
     achievementNotification.style.display = 'block';
     if (localStorage.getItem('incrementalGameSound') !== '0') {
@@ -45,12 +56,22 @@ function checkAchievements() {
     });
 }
 
+
 // Hook into game updates
 const oldUpdateDisplay = window.updateDisplay;
 window.updateDisplay = function() {
     oldUpdateDisplay();
     checkAchievements();
+    // Defensive: if the achievements tab is visible and the list is empty, re-render
+    const achievementsTab = document.getElementById('achievements-tab');
+    const achievementsList = getAchievementsList();
+    if (achievementsTab && achievementsTab.style.display !== 'none' && achievementsList && achievementsList.children.length === 0) {
+        updateAchievementsDisplay();
+    }
 };
+
+// Expose updateAchievementsDisplay globally so index.html can call it
+window.updateAchievementsDisplay = updateAchievementsDisplay;
 
 // Save/load achievements
 window.getAchievementsState = () => achievements.map(a => a.unlocked);
@@ -59,4 +80,5 @@ window.setAchievementsState = (arr) => {
     updateAchievementsDisplay();
 };
 
-updateAchievementsDisplay();
+// Ensure achievements display is updated after DOM is ready
+window.addEventListener('DOMContentLoaded', updateAchievementsDisplay);

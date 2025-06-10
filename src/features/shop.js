@@ -116,7 +116,7 @@ function updateShopDisplay() {
         const li = document.createElement('li');
         li.style.marginBottom = '1em';
         let costStr = window.formatNumber ? window.formatNumber(item.cost) : item.cost;
-        li.innerHTML = `<b>${item.name}</b> <span class="info-icon" tabindex="0">ℹ️</span><span class="tooltip">${item.desc}</span><br>Cost: ${costStr} coins ` +
+        li.innerHTML = `<b>${item.name}</b> <span class="tooltip-container"><span class="info-icon" tabindex="0" aria-label="More info" aria-describedby="shop-tooltip-${item.id}">ℹ️</span><span class="tooltip" id="shop-tooltip-${item.id}" role="tooltip">${item.desc}</span></span><br>Cost: ${costStr} coins ` +
             (item.bought ? '<span style="color:green;">[BOUGHT]</span>' : `<button id="shop-buy-${item.id}">Buy</button>`);
         shopList.appendChild(li);
         if (!item.bought) {
@@ -150,7 +150,7 @@ function updateShopDisplay() {
             let costStr = window.formatNumber ? window.formatNumber(item.cost) : item.cost;
             let owned = item.bought;
             let isActive = document.body.classList.contains(item.id);
-            li.innerHTML = `<b>${item.name}</b> <span class="info-icon" tabindex="0">ℹ️</span><span class="tooltip">${item.desc}</span><br>Cost: ${costStr} coins ` +
+            li.innerHTML = `<b>${item.name}</b> <span class="tooltip-container"><span class="info-icon" tabindex="0" aria-label="More info" aria-describedby="appearance-tooltip-${item.id}">ℹ️</span><span class="tooltip" id="appearance-tooltip-${item.id}" role="tooltip">${item.desc}</span></span><br>Cost: ${costStr} coins ` +
                 (owned ? `<span style=\"color:green;\">[OWNED]</span> <button id=\"appearance-activate-${item.id}\">${isActive ? 'Active' : 'Activate'}</button>` : `<button id=\"appearance-buy-${item.id}\">Buy</button>`);
             appearanceShopList.appendChild(li);
             if (!owned) {
@@ -192,7 +192,7 @@ function updateShopDisplay() {
         const baseLi = document.createElement('li');
         baseLi.style.marginBottom = '1em';
         let isBase = !document.body.classList.contains('appearance-classic') && !document.body.classList.contains('appearance-retro') && !document.body.classList.contains('appearance-vaporwave');
-        baseLi.innerHTML = `<b>Base Look</b> <span class=\"info-icon\" tabindex=\"0\">ℹ️</span><span class=\"tooltip\">Return to the default appearance.</span><br><button id=\"appearance-base-toggle\">${isBase ? 'Active' : 'Activate'}</button>`;
+        baseLi.innerHTML = `<b>Base Look</b> <span class=\"tooltip-container\"><span class=\"info-icon\" tabindex=\"0\" aria-label=\"More info\" aria-describedby=\"appearance-tooltip-base\">ℹ️</span><span class=\"tooltip\" id=\"appearance-tooltip-base\" role=\"tooltip\">Return to the default appearance.</span></span><br><button id=\"appearance-base-toggle\">${isBase ? 'Active' : 'Activate'}</button>`;
         appearanceShopList.appendChild(baseLi);
         setTimeout(() => {
             const btn = document.getElementById('appearance-base-toggle');

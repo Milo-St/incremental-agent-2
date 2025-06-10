@@ -1,13 +1,89 @@
+
+    <!-- CHEAT MENU (hidden by default, toggled with a secret key combo) -->
+    <div id="cheat-menu" class="content-panel" style="display:none; position:fixed; top:80px; right:40px; z-index:2000; min-width:260px; background:#fffbe7; border:2px solid #ffe082; box-shadow:0 2px 12px rgba(0,0,0,0.13); border-radius:10px; padding:1.2em 1.5em;">
+        <h3 style="margin-top:0;">Cheat Menu</h3>
+        <label>Coins: <input type="number" id="cheat-coins" min="0" step="1" style="width:100px;"></label>
+        <button id="cheat-set-coins">Set</button>
+        <button id="cheat-add-coins">+1000</button><br><br>
+        <label>Prestige Points: <input type="number" id="cheat-prestige" min="0" step="1" style="width:60px;"></label>
+        <button id="cheat-set-prestige">Set</button><br><br>
+        <button id="cheat-unlock-all">Unlock All Achievements</button>
+        <button id="cheat-close" style="float:right;">Close</button>
+        <div style="font-size:0.9em; color:#888; margin-top:1em;">(Press <b>Ctrl+Alt+X</b> to open/close)</div>
+    </div>
+
+    <script>
+    // CHEAT MENU LOGIC
+    (function() {
+        let cheatMenu = document.getElementById('cheat-menu');
+        let showCheatMenu = false;
+        function toggleCheatMenu(force) {
+            showCheatMenu = (force !== undefined) ? force : !showCheatMenu;
+            cheatMenu.style.display = showCheatMenu ? 'block' : 'none';
+        }
+        // Secret key combo: Ctrl+Alt+X (less likely to conflict)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.altKey && e.code === 'KeyX') {
+                toggleCheatMenu();
+            }
+        });
+        // Close button
+        document.getElementById('cheat-close').onclick = function() { toggleCheatMenu(false); };
+        // Set coins
+        document.getElementById('cheat-set-coins').onclick = function() {
+            let val = parseFloat(document.getElementById('cheat-coins').value);
+            if (!isNaN(val)) {
+                window.coins = val;
+                if (window.updateDisplay) window.updateDisplay();
+            }
+        };
+        // Add coins
+        document.getElementById('cheat-add-coins').onclick = function() {
+            window.coins = (window.coins || 0) + 1000;
+            if (window.updateDisplay) window.updateDisplay();
+        };
+        // Set prestige
+        document.getElementById('cheat-set-prestige').onclick = function() {
+            let val = parseInt(document.getElementById('cheat-prestige').value);
+            if (!isNaN(val) && window.setPrestigePoints) {
+                window.setPrestigePoints(val);
+                if (window.updateDisplay) window.updateDisplay();
+            }
+        };
+        // Unlock all achievements
+        document.getElementById('cheat-unlock-all').onclick = function() {
+            if (window.setAchievementsState) {
+                window.setAchievementsState([true, true, true, true]);
+                if (window.updateDisplay) window.updateDisplay();
+            }
+        };
+    })();
+    </script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Incremental Game</title>
+    <link rel="stylesheet" href="../styles/base.css">
+    <link rel="stylesheet" href="../styles/panels.css">
+    <link rel="stylesheet" href="../styles/buttons.css">
+    <link rel="stylesheet" href="../styles/tooltips.css">
+    <link rel="stylesheet" href="../styles/appearance.css">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <div id="autosave-indicator" style="font-size:0.8em; color:#888; margin: 0.5em auto 0.5em auto; text-align:center; position:relative; z-index:10;"></div>
+    <!-- NAVBAR at the very top -->
+    <nav class="main-tabs">
+        <div class="tab-bar">
+            <button class="tab-btn" onclick="showTab('shop-tab')" id="tab-btn-shop">Upgrades</button>
+            <button class="tab-btn" onclick="showTab('prestige-tab')" id="tab-btn-prestige">Prestige</button>
+            <button class="tab-btn" onclick="showTab('appearance-tab')" id="tab-btn-appearance">Appearance</button>
+            <button class="tab-btn" onclick="showTab('achievements-tab')" id="tab-btn-achievements">Achievements</button>
+            <button class="tab-btn" onclick="showTab('stats-tab')" id="tab-btn-stats">Statistics</button>
+        </div>
+    </nav>
+    <div id="autosave-indicator" style="display:none; font-size:0.8em; color:#888; margin: 0.5em auto 0.5em auto; text-align:center; position:relative; z-index:10;"></div>
     <div class="container">
         <h1>Incremental Game</h1>
         <div id="resource-display">
@@ -15,16 +91,20 @@
                 <span class="coins-label">Coins:</span>
                 <span id="coins">0</span>
                 <span id="cps-display">(+0/sec)</span>
+                <span class="tooltip-container"><span class="info-icon" tabindex="0" aria-label="CPS Info" aria-describedby="cps-tooltip">❔</span><span class="tooltip" id="cps-tooltip" role="tooltip">
+                    <b>Coins per Second (CPS)</b><br>
+                    <ul style='margin:0 0 0.2em 1.1em; padding:0; font-size:0.98em;'>
+                        <li><b>Auto-Collectors:</b> +1 coin/sec each (affected by shop & prestige multipliers)</li>
+                        <li><b>Coin Magnet:</b> +1 coin/sec (if bought, affected by multipliers)</li>
+                        <li><b>Shop Upgrades:</b> May multiply click and auto-collector gains</li>
+                        <li><b>Prestige:</b> Each prestige increases all coin gains by 10%</li>
+                    </ul>
+                    <span style='font-size:0.97em; color:#ffe082;'><b>Tip:</b></span> <span style='font-size:0.97em;'>CPS is the sum of all automatic coin sources, including bonuses!</span>
+                </span></span>
             </div>
             <button id="increment-btn" accesskey="c" title="Hotkey: C">Collect Coin</button>
         </div>
-        <div class="main-tabs">
-            <div class="tab-bar">
-                <button class="tab-btn" onclick="showTab('stats-tab')" id="tab-btn-stats">Statistics</button>
-                <button class="tab-btn" onclick="showTab('shop-tab')" id="tab-btn-shop">Shop</button>
-                <button class="tab-btn" onclick="showTab('appearance-tab')" id="tab-btn-appearance">Appearance</button>
-                <button class="tab-btn" onclick="showTab('prestige-tab')" id="tab-btn-prestige">Prestige</button>
-            </div>
+        <div class="main-tabs-content">
             <div class="tab-content" id="stats-tab">
                 <ul id="stats-list" style="list-style:none; padding-left:0;"></ul>
             </div>
@@ -33,6 +113,12 @@
             </div>
             <div class="tab-content" id="appearance-tab" style="display:none;">
                 <ul id="appearance-shop-list" style="list-style:none; padding-left:0;"></ul>
+            </div>
+            <div class="tab-content" id="achievements-tab" style="display:none;">
+                <div id="achievements-panel" class="content-panel" style="text-align:left;">
+                    <h3 style="margin-bottom:0.5em;">Achievements</h3>
+                    <ul id="achievements-list" style="list-style:none; padding-left:0;"></ul>
+                </div>
             </div>
             <div class="tab-content" id="prestige-tab" style="display:none;">
                 <div>Prestige Points: <span id="prestige-points">0</span></div>
@@ -51,10 +137,6 @@
                 <button id="autocollector-btn" accesskey="a" title="Hotkey: A">Buy Auto-Collector (+1/sec)</button>
                 <div>Auto-Collector Cost: <span id="autocollector-cost">50</span> coins</div>
                 <div>Auto-Collectors Owned: <span id="autocollector-count">0</span></div>
-            </div>
-            <div id="achievements-panel" class="content-panel" style="margin-top:1.5em; text-align:left;">
-                <h3 style="margin-bottom:0.5em;">Achievements</h3>
-                <ul id="achievements-list" style="list-style:none; padding-left:0;"></ul>
             </div>
         </div>
         <div id="achievement-notification" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#27ae60; color:#fff; padding:1em 2em; border-radius:8px; font-size:1.2em; z-index:1000;"></div>
@@ -133,10 +215,14 @@
         btns.forEach(function(btn) {
             btn.classList.toggle('active', btn.getAttribute('onclick').includes(tabId));
         });
+        // If Achievements tab is shown, force update achievements display
+        if (tabId === 'achievements-tab' && window.updateAchievementsDisplay) {
+            window.updateAchievementsDisplay();
+        }
     }
-    // Set default tab
+    // Set default tab to Upgrades (shop)
     window.addEventListener('DOMContentLoaded', function() {
-        showTab('stats-tab');
+        showTab('shop-tab');
     });
     // Ensure all scripts run after DOM is loaded
     // Load scripts in order, then call loadGame from save.js

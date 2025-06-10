@@ -1,0 +1,43 @@
+/* Base and global styles */
+body {
+    font-family: Arial, sans-serif !important;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 60px auto 0 auto;
+    background: #fff;
+    padding: 2.5em 2em 2em 2em;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    text-align: center;
+    position: relative;
+}
+
+.coins-cps-group {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7em;
+    flex-shrink: 1;
+    min-width: 0;
+}
+.coins-label {
+    font-weight: bold;
+    margin-right: 0.2em;
+}
+#coins {
+    font-size: 1.3em;
+    font-weight: bold;
+    min-width: 60px;
+    display: inline-block;
+    text-align: right;
+}
+#cps-display {
+    font-size: 0.95em;
+    color: #888;
+    margin-left: 0.5em;
+    white-space: nowrap;
+}
